@@ -1,0 +1,1700 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:u="clr-namespace:UpdatingAXEmployeeStatus;assembly=UpdatingAXEmployeeStatus" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:w="clr-namespace:WriteTextLogs;assembly=WriteTextLogs" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="SponsershipData" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="FinalExitVisaIqamas" Type="InArgument(scg:List(x:String))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>2836,4328</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="88">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Windows.Forms</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+      <x:String>UpdatingAXEmployeeStatus</x:String>
+      <x:String>WriteTextLogs</x:String>
+      <x:String>UiPathTeam.SharePoint</x:String>
+      <x:String>Microsoft.SharePoint.Client</x:String>
+      <x:String>UiPathTeam.SharePoint.Activities</x:String>
+      <x:String>UiPathTeam.SharePoint.Activities.Libraries</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.Mail</x:String>
+      <x:String>UiPath.Mail.Outlook.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>UiPath.Database</x:String>
+      <x:String>UiPath.Database.Activities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="90">
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>Microsoft.SharePoint.Client</AssemblyReference>
+      <AssemblyReference>Microsoft.SharePoint.Client.Runtime</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>OfficeDevPnP.Core</AssemblyReference>
+      <AssemblyReference>OTPLibrary</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Windows.Forms</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.Web</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>UiPathTeam.SharePoint</AssemblyReference>
+      <AssemblyReference>UiPathTeam.SharePoint.Activities</AssemblyReference>
+      <AssemblyReference>UpdatingAXEmployeeStatus</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>WriteTextLogs</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
+      <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.Entity</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
+      <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="2846.4,4263.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="PersonnelNumber" />
+      <Variable x:TypeArguments="x:String" Name="Name" />
+      <Variable x:TypeArguments="x:String" Name="IqamaNumber" />
+      <Variable x:TypeArguments="x:String" Name="BorderNumber" />
+      <Variable x:TypeArguments="x:String" Name="TaskID" />
+      <Variable x:TypeArguments="x:String" Name="AnameF" />
+      <Variable x:TypeArguments="x:String" Name="AnameM" />
+      <Variable x:TypeArguments="x:String" Name="AnameL" />
+      <Variable x:TypeArguments="x:String" Name="SponsNum" />
+      <Variable x:TypeArguments="x:String" Name="MOLcode" />
+      <Variable x:TypeArguments="x:String" Name="SADADnu" />
+      <Variable x:TypeArguments="x:String" Name="RequestID" />
+      <Variable x:TypeArguments="s:String[]" Name="PreRequisite" />
+      <Variable x:TypeArguments="x:Boolean" Name="trafficResult" />
+      <Variable x:TypeArguments="x:Boolean" Name="medResult" />
+      <Variable x:TypeArguments="x:Boolean" Name="depResult" />
+      <Variable x:TypeArguments="x:Boolean" Name="passValidResult" />
+      <Variable x:TypeArguments="x:String" Name="PassExpDate" />
+      <Variable x:TypeArguments="x:String" Name="IqamaExpirationDate" />
+      <Variable x:TypeArguments="x:Boolean" Default="False" Name="validWorker" />
+      <Variable x:TypeArguments="x:String" Name="isLastWorker" />
+      <Variable x:TypeArguments="x:String" Name="UPdateAXErrorMSG" />
+      <Variable x:TypeArguments="x:String" Name="UpdateAXRequestStatus" />
+      <Variable x:TypeArguments="x:String" Name="UpdateAXResult" />
+      <Variable x:TypeArguments="x:String" Name="FailureReason">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:String" Value="" />
+        </Variable.Default>
+      </Variable>
+      <Variable x:TypeArguments="x:String" Name="QueuePreRequisite" />
+      <Variable x:TypeArguments="x:String" Name="AXServiceURL" />
+      <Variable x:TypeArguments="x:Boolean" Name="SponserCheckerStatus" />
+      <Variable x:TypeArguments="x:String" Name="SponserLog" />
+      <Variable x:TypeArguments="x:String" Name="RenewalDuration" />
+      <Variable x:TypeArguments="x:String" Name="RenewalType" />
+      <Variable x:TypeArguments="x:String" Name="requirePre" />
+      <Variable x:TypeArguments="x:String" Name="IsAllPrerequisiteDone" />
+      <Variable x:TypeArguments="x:String" Name="LegalEntity" />
+      <Variable x:TypeArguments="sd:DataTable" Name="MuqeemPayment" />
+      <Variable x:TypeArguments="x:Boolean" Name="MuqemPaymentStatus" />
+      <Variable x:TypeArguments="ui:DatabaseConnection" Name="conn" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="2784,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:LogMessage>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="2784,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_317">
+          <w:WriteLogsToFile DisplayName="Write logs to file" sap:VirtualizedContainerService.HintSize="1991.2,22.4" sap2010:WorkflowViewState.IdRef="WriteLogsToFile_1" LogMessage="Item processing started" TextFilePath="[in_Config(&quot;LogsFolder&quot;).ToString+&quot;\Logs_&quot;+Date.Now.ToString(&quot;dd_MM_yyyy&quot;)+&quot;.txt&quot;]" />
+        </Sequence>
+      </ui:CommentOut.Body>
+    </ui:CommentOut>
+    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="2784,52.8" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+      <ui:MultipleAssign.AssignOperations>
+        <scg:List x:TypeArguments="ui:AssignOperation" Capacity="32">
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[PersonnelNumber]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("PersonnelNumber").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[Name]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("WorkerName").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[IqamaNumber]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("IqamaNumber").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[BorderNumber]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("BorderNO").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[TaskID]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Task").ToString.Trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[AnameF]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("ArabicFirstName").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[AnameM]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("ArabicMiddleName").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_8">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[AnameL]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("ArabicLastName").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_9">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[SponsNum]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("SponsorshipNumber").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_10">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[MOLcode]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("MOLCode").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_11">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[SADADnu]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("SadadNumber").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_12">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[RequestID]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("RequestId").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_13">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[QueuePreRequisite]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("PreRequisite").ToString]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_14">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[isLastWorker]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("IsLastWorker").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_15">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[AXServiceURL]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("AXServiceURL").ToString]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_16">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[RenewalDuration]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("RenewalDuration").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_17">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[RenewalType]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Type").ToString.trim]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_18">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[IsAllPrerequisiteDone]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("IsAllPrerequisiteDone").ToString]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+        </scg:List>
+      </ui:MultipleAssign.AssignOperations>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:MultipleAssign>
+    <Sequence DisplayName="Get Legal ENTITY" sap:VirtualizedContainerService.HintSize="2784,83.2" sap2010:WorkflowViewState.IdRef="Sequence_290">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If Condition="[MOLcode.Contains(&quot;191198&quot;) Or MOLcode.Contains(&quot;191199&quot;) or MOLcode.Contains(&quot;1037533&quot;)]" sap:VirtualizedContainerService.HintSize="1158,402" sap2010:WorkflowViewState.IdRef="If_118">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <If.Then>
+          <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_200">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[LegalEntity]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">Estekdam</InArgument>
+            </Assign.Value>
+          </Assign>
+        </If.Then>
+        <If.Else>
+          <If Condition="[MOLcode.Contains(&quot;1610878&quot;)]" sap:VirtualizedContainerService.HintSize="679,242" sap2010:WorkflowViewState.IdRef="If_119">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_201">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[LegalEntity]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">Azka</InArgument>
+                </Assign.Value>
+              </Assign>
+            </If.Then>
+            <If.Else>
+              <If Condition="[MOLcode.Contains(&quot;1583084&quot;)]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="If_120">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_202">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[LegalEntity]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">Maken</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </If.Then>
+                <If.Else>
+                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_203">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[LegalEntity]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">Esnad</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </If.Else>
+              </If>
+            </If.Else>
+          </If>
+        </If.Else>
+      </If>
+    </Sequence>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="2784,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_318">
+          <Sequence DisplayName="check current Muqeem" sap:VirtualizedContainerService.HintSize="1991.2,68.8" sap2010:WorkflowViewState.IdRef="Sequence_306">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="LastLegalEntity" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:ReadTextFile File="{x:Null}" Content="[LastLegalEntity]" DisplayName="Read Text File" FileName="E:\GR.Renwal.LOG\Prerequisite\LastLegalEntity.txt" sap:VirtualizedContainerService.HintSize="782.4,80.8" sap2010:WorkflowViewState.IdRef="ReadTextFile_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:ReadTextFile>
+            <Sequence DisplayName="check Login portal" sap:VirtualizedContainerService.HintSize="782.4,1749.6" sap2010:WorkflowViewState.IdRef="Sequence_305">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If Condition="[LegalEntity.Equals(LastLegalEntity)]" sap:VirtualizedContainerService.HintSize="740.8,1656.8" sap2010:WorkflowViewState.IdRef="If_124">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Else>
+                  <Sequence sap:VirtualizedContainerService.HintSize="596.8,1497.6" sap2010:WorkflowViewState.IdRef="Sequence_304">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Sequence DisplayName="Log out sequence" sap:VirtualizedContainerService.HintSize="555.2,348.8" sap2010:WorkflowViewState.IdRef="Sequence_292">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser Muqeem Home Page" sap:VirtualizedContainerService.HintSize="433.6,256" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="65ca930ce6ecd6b55b264727b5e78d49" Selector="&lt;html app='chrome.exe' title='الصفحة الرئيسية' /&gt;">
+                        <ui:BrowserScope.Body>
+                          <ActivityAction x:TypeArguments="x:Object">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                            </ActivityAction.Argument>
+                            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_291">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Log Out" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT">
+                                <ui:Click.CursorPosition>
+                                  <ui:CursorPosition Position="Center">
+                                    <ui:CursorPosition.OffsetX>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:CursorPosition.OffsetX>
+                                    <ui:CursorPosition.OffsetY>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:CursorPosition.OffsetY>
+                                  </ui:CursorPosition>
+                                </ui:Click.CursorPosition>
+                                <ui:Click.Target>
+                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="2b81a60d-3e0d-4cc6-ae6b-78d1e3a5c8ee" InformativeScreenshot="75047ec52675beb933a66d82105c2f6e" Selector="&lt;webctrl parentid='TUTORIAL_headerAsideElement' tag='I' class='*sign-out' /&gt;">
+                                    <ui:Target.TimeoutMS>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:Target.TimeoutMS>
+                                    <ui:Target.WaitForReady>
+                                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                                    </ui:Target.WaitForReady>
+                                  </ui:Target>
+                                </ui:Click.Target>
+                              </ui:Click>
+                              <ui:CloseTab Browser="{x:Null}" DisplayName="Close Tab" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="CloseTab_1" />
+                            </Sequence>
+                          </ActivityAction>
+                        </ui:BrowserScope.Body>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:BrowserScope>
+                    </Sequence>
+                    <Sequence DisplayName="Muqueem Login" sap:VirtualizedContainerService.HintSize="555.2,1016" sap2010:WorkflowViewState.IdRef="Sequence_303">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:Boolean" Default="False" Name="Muqueem_LoginStatus" />
+                        <Variable x:TypeArguments="x:Int32" Default="0" Name="Muqueem_LoginTrial" />
+                        <Variable x:TypeArguments="s:Exception" Name="LastExceptionError" />
+                      </Sequence.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:InterruptibleDoWhile CurrentIndex="{x:Null}" Condition="[(Not Muqueem_LoginStatus) and Muqueem_LoginTrial &lt;3]" DisplayName="Do While" sap:VirtualizedContainerService.HintSize="513.6,830.4" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+                        <ui:InterruptibleDoWhile.Body>
+                          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="478.4,623.2" sap2010:WorkflowViewState.IdRef="Sequence_298">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <TryCatch DisplayName="Try Catch Launch &amp; Login" sap:VirtualizedContainerService.HintSize="436.8,530.4" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <TryCatch.Try>
+                                <Sequence DisplayName="Launch &amp; Login Sequence" sap:VirtualizedContainerService.HintSize="375.2,299.2" sap2010:WorkflowViewState.IdRef="Sequence_293">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:String" Name="GosiURL" />
+                                    <Variable x:TypeArguments="ss:SecureString" Name="GosiPassword" />
+                                    <Variable x:TypeArguments="x:String" Name="GosiUsername" />
+                                    <Variable x:TypeArguments="x:String" Name="APIKey" />
+                                    <Variable x:TypeArguments="x:String" Name="APICreateTaskURL" />
+                                    <Variable x:TypeArguments="x:String" Name="APIGetResultURL" />
+                                    <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="RegexResults" />
+                                    <Variable x:TypeArguments="x:String" Name="DefaultDownloadFolderPath" />
+                                    <Variable x:TypeArguments="x:String" Name="OldYearlyReportFilePath" />
+                                    <Variable x:TypeArguments="x:String" Name="NewYearlyReportFilePath" />
+                                    <Variable x:TypeArguments="x:String" Name="WorkspaceFolder" />
+                                    <Variable x:TypeArguments="x:String" Name="EmailSubject" />
+                                    <Variable x:TypeArguments="x:String" Name="MudadCompanyNumber" />
+                                    <Variable x:TypeArguments="x:String" Name="OTP" />
+                                    <Variable x:TypeArguments="x:String" Name="IqamaNumber" />
+                                    <Variable x:TypeArguments="ss:SecureString" Name="pass" />
+                                    <Variable x:TypeArguments="x:String" Name="user" />
+                                  </Sequence.Variables>
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[&quot;Muqeem&quot;+LegalEntity]" CacheStrategy="None" DisplayName="Get Credential" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="333.6,52.8" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[pass]" Username="[user]" />
+                                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke MuqeemLogin workflow" sap:VirtualizedContainerService.HintSize="333.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_29" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Muqeem\Log_Into_Muqeem.xaml">
+                                    <ui:InvokeWorkflowFile.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="in_Username">[user]</InArgument>
+                                      <InArgument x:TypeArguments="ss:SecureString" x:Key="in_Password">[pass]</InArgument>
+                                      <OutArgument x:TypeArguments="x:Boolean" x:Key="Login_success">[Muqueem_LoginStatus]</OutArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="Muqeem_URL">[in_Config("MuqeemURL").ToString]</InArgument>
+                                      <InArgument x:TypeArguments="x:Boolean" x:Key="KeepEstkdamSession">False</InArgument>
+                                    </ui:InvokeWorkflowFile.Arguments>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </ui:InvokeWorkflowFile>
+                                </Sequence>
+                              </TryCatch.Try>
+                              <TryCatch.Catches>
+                                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="403.2,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ActivityAction x:TypeArguments="s:Exception">
+                                    <ActivityAction.Argument>
+                                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                    </ActivityAction.Argument>
+                                    <Sequence DisplayName="Muqueem Error Sequence" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_297">
+                                      <Sequence.Variables>
+                                        <Variable x:TypeArguments="x:Boolean" Name="MuquemPageExist" />
+                                      </Sequence.Variables>
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <Assign sap:VirtualizedContainerService.HintSize="512,60" sap2010:WorkflowViewState.IdRef="Assign_204">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="s:Exception">[LastExceptionError]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="s:Exception">[exception]</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                      <ui:UiElementExists DisplayName="Element Exists" Exists="[MuquemPageExist]" sap:VirtualizedContainerService.HintSize="512,51" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+                                        <ui:UiElementExists.Target>
+                                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d5e7c185-10d1-41fd-a486-6e9103466d28" Selector="&lt;html app='chrome.exe' title='بوابة مقيم | Muqeem Portal' /&gt;&#xA;" TimeoutMS="3000">
+                                            <ui:Target.WaitForReady>
+                                              <InArgument x:TypeArguments="ui:WaitForReady" />
+                                            </ui:Target.WaitForReady>
+                                          </ui:Target>
+                                        </ui:UiElementExists.Target>
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </ui:UiElementExists>
+                                      <If Condition="[MuquemPageExist]" sap:VirtualizedContainerService.HintSize="512,528" sap2010:WorkflowViewState.IdRef="If_121">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <If.Then>
+                                          <Sequence sap:VirtualizedContainerService.HintSize="476,352" sap2010:WorkflowViewState.IdRef="Sequence_295">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser Muqueem" sap:VirtualizedContainerService.HintSize="434,260" sap2010:WorkflowViewState.IdRef="BrowserScope_2" InformativeScreenshot="7dc3a7d91a46c4e54007505e69330d7c" Selector="&lt;html app='chrome.exe' title='بوابة مقيم | Muqeem Portal' /&gt;">
+                                              <ui:BrowserScope.Body>
+                                                <ActivityAction x:TypeArguments="x:Object">
+                                                  <ActivityAction.Argument>
+                                                    <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                                  </ActivityAction.Argument>
+                                                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_294">
+                                                    <sap:WorkflowViewStateService.ViewState>
+                                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      </scg:Dictionary>
+                                                    </sap:WorkflowViewStateService.ViewState>
+                                                    <ui:CloseTab Browser="{x:Null}" DisplayName="Close Tab" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="CloseTab_2" />
+                                                  </Sequence>
+                                                </ActivityAction>
+                                              </ui:BrowserScope.Body>
+                                              <sap:WorkflowViewStateService.ViewState>
+                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                </scg:Dictionary>
+                                              </sap:WorkflowViewStateService.ViewState>
+                                            </ui:BrowserScope>
+                                          </Sequence>
+                                        </If.Then>
+                                        <If.Else>
+                                          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_296">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                          </Sequence>
+                                        </If.Else>
+                                      </If>
+                                      <Assign sap:VirtualizedContainerService.HintSize="512,60" sap2010:WorkflowViewState.IdRef="Assign_205">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:Int32">[Muqueem_LoginTrial]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:Int32">[Muqueem_LoginTrial+1]</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                    </Sequence>
+                                  </ActivityAction>
+                                </Catch>
+                              </TryCatch.Catches>
+                            </TryCatch>
+                          </Sequence>
+                        </ui:InterruptibleDoWhile.Body>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:InterruptibleDoWhile>
+                      <If Condition="[Muqueem_LoginStatus]" sap:VirtualizedContainerService.HintSize="513.6,52.8" sap2010:WorkflowViewState.IdRef="If_123">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <If.Then>
+                          <Sequence sap:VirtualizedContainerService.HintSize="200,83" sap2010:WorkflowViewState.IdRef="Sequence_299">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </Sequence>
+                        </If.Then>
+                        <If.Else>
+                          <Sequence sap:VirtualizedContainerService.HintSize="526,660" sap2010:WorkflowViewState.IdRef="Sequence_302">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <If Condition="[LastExceptionError.Message.Contains(&quot;OTP&quot;)]" sap:VirtualizedContainerService.HintSize="484,506" sap2010:WorkflowViewState.IdRef="If_122">
+                              <If.Then>
+                                <Sequence sap:VirtualizedContainerService.HintSize="376,329" sap2010:WorkflowViewState.IdRef="Sequence_300">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:SendOutlookMail Account="{x:Null}" Bcc="{x:Null}" ContinueOnError="{x:Null}" MailMessage="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="[&quot;Dears,&quot;+Environment.NewLine+&#xA;Environment.NewLine+&#xA;&quot;Robot made 3 attempts to log into Muqeem Portal. But failed to login due to OTP issue&quot;+Environment.NewLine+&#xA;Environment.NewLine+&#xA;&quot;Next login attempt will be made after 30 minutes.&quot;+&#xA;Environment.NewLine+&#xA;&quot;BR,&quot;]" Cc="ms@saed.sa;wyf@saed.sa;iis@saed.sa;ado@saed.sa;aod@saed.sa;ibg@saed.sa" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="334,237" sap2010:WorkflowViewState.IdRef="SendOutlookMail_1" Importance="Normal" IsBodyHtml="True" IsDraft="False" Sensitivity="Normal" Subject="Government Relation  robot failed to log into Muqeem due to OTP" To="rsu@saed.sa;asq@saed.sa;man@saed.sa;adg@saed.sa;kme@saed.sa;hgd@saed.sa;gr-hr@saed.sa">
+                                    <ui:SendOutlookMail.Files>
+                                      <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4" />
+                                    </ui:SendOutlookMail.Files>
+                                  </ui:SendOutlookMail>
+                                </Sequence>
+                              </If.Then>
+                              <If.Else>
+                                <Sequence sap:VirtualizedContainerService.HintSize="286.4,84.8" sap2010:WorkflowViewState.IdRef="Sequence_301">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </Sequence>
+                              </If.Else>
+                            </If>
+                            <Throw Exception="[new ApplicationException(&quot;Failed to log into Muqueem&quot;)]" sap:VirtualizedContainerService.HintSize="484,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                          </Sequence>
+                        </If.Else>
+                      </If>
+                    </Sequence>
+                  </Sequence>
+                </If.Else>
+              </If>
+            </Sequence>
+            <ui:WriteTextFile File="{x:Null}" DisplayName="Write Text File" FileName="E:\GR.Renwal.LOG\Prerequisite\LastLegalEntity.txt" sap:VirtualizedContainerService.HintSize="782.4,134.4" sap2010:WorkflowViewState.IdRef="WriteTextFile_1" Text="[LegalEntity]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:WriteTextFile>
+          </Sequence>
+        </Sequence>
+      </ui:CommentOut.Body>
+    </ui:CommentOut>
+    <TryCatch DisplayName="Try Check Muqeem PAymnet in DBCatch" sap:VirtualizedContainerService.HintSize="2784,776" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <TryCatch.Try>
+        <Sequence DisplayName="Check muqeem paymnet in DB" sap:VirtualizedContainerService.HintSize="973.6,546.4" sap2010:WorkflowViewState.IdRef="Sequence_327">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:DatabaseConnect DisplayName="Connect to database" sap:VirtualizedContainerService.HintSize="911.2,60" sap2010:WorkflowViewState.IdRef="DatabaseConnect_1" ProviderName="Microsoft.Data.SqlClient" ConnectionString="Data Source=SAED-RPA2;Initial Catalog=GR_Paymnet;User ID=sa;Password=3Dsaed2025#;Encrypt=False" DatabaseConnection="[conn]">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:DatabaseConnect>
+          <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[MuqeemPayment]" DisplayName="Run query" ExistingDbConnection="[conn]" sap:VirtualizedContainerService.HintSize="911.2,52.8" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="SELECT * FROM [GR_Paymnet].[dbo].[PaymentTransactions] where IqamaNumber='@IqamaNumber' and RequestNumber='@RequestNumber' and PaymentType='Iqama'">
+            <ui:ExecuteQuery.Parameters>
+              <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="RequestNumber">[RequestID]</InArgument>
+            </ui:ExecuteQuery.Parameters>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ExecuteQuery>
+          <If Condition="[MuqeemPayment.Rows.Count&gt;0]" sap:VirtualizedContainerService.HintSize="911.2,241.6" sap2010:WorkflowViewState.IdRef="If_128">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Assign sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_206">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Boolean">[MuqemPaymentStatus]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                </Assign.Value>
+              </Assign>
+            </If.Then>
+            <If.Else>
+              <Assign sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_207">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Boolean">[MuqemPaymentStatus]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                </Assign.Value>
+              </Assign>
+            </If.Else>
+          </If>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="979,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Assign sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_208">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Boolean">[MuqemPaymentStatus]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+              </Assign.Value>
+            </Assign>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <If Condition="[RenewalType.Contains(&quot;(No Pre-&quot;)]" DisplayName="Check Open Systm typp" sap:VirtualizedContainerService.HintSize="2784,1579" sap2010:WorkflowViewState.IdRef="If_88">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence DisplayName="Go to G Sadad#" sap:VirtualizedContainerService.HintSize="496,315" sap2010:WorkflowViewState.IdRef="Sequence_155">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_117">
+            <Assign.To>
+              <OutArgument x:TypeArguments="s:String[]">[PreRequisite]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="s:String[]">[{""}]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_118">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Boolean">[validWorker]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="All Request Type" sap:VirtualizedContainerService.HintSize="2243,1419" sap2010:WorkflowViewState.IdRef="Sequence_217">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If Condition="[IsAllPrerequisiteDone=&quot;true&quot;]" DisplayName="If  run prerequest befor" sap:VirtualizedContainerService.HintSize="2181,1308" sap2010:WorkflowViewState.IdRef="If_115">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_199">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Boolean">[validWorker]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                </Assign.Value>
+              </Assign>
+            </If.Then>
+            <If.Else>
+              <Sequence DisplayName="Check Prerequisit" sap:VirtualizedContainerService.HintSize="1702,1148" sap2010:WorkflowViewState.IdRef="Sequence_279">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If Condition="[FinalExitVisaIqamas.Contains(IqamaNumber)]" sap:VirtualizedContainerService.HintSize="1640,220" sap2010:WorkflowViewState.IdRef="If_117">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <u:UpdateAXWithPrerequisitesStatus Amount="[0]" BackendErrorMsg="[UPdateAXErrorMSG]" Code="Final Exit Visa Check" DisplayName="Update AX with prerequisites status" sap:VirtualizedContainerService.HintSize="200,25" sap2010:WorkflowViewState.IdRef="UpdateAXWithPrerequisitesStatus_1" LogMsg="worker has a valid final exit visa" Password="saed@332211" PersonalNumber="[PersonnelNumber]" RequestID="[RequestID]" RequestStatus="[UpdateAXRequestStatus]" Result="[UpdateAXResult]" ServiceURL="[in_Config(&quot;AXServiceURL&quot;).ToString]" Status="0" Username="esssrv@saed.sa">
+                      <u:UpdateAXWithPrerequisitesStatus.ExpiryDate>
+                        <InArgument x:TypeArguments="x:String">
+                          <Literal x:TypeArguments="x:String" Value="" />
+                        </InArgument>
+                      </u:UpdateAXWithPrerequisitesStatus.ExpiryDate>
+                      <u:UpdateAXWithPrerequisitesStatus.IdenttityNu>
+                        <InArgument x:TypeArguments="x:String">
+                          <Literal x:TypeArguments="x:String" Value="" />
+                        </InArgument>
+                      </u:UpdateAXWithPrerequisitesStatus.IdenttityNu>
+                    </u:UpdateAXWithPrerequisitesStatus>
+                  </If.Then>
+                  <If.Else>
+                    <u:UpdateAXWithPrerequisitesStatus LogMsg="{x:Null}" Amount="[0]" BackendErrorMsg="[UPdateAXErrorMSG]" Code="Final Exit Visa Check" DisplayName="Update AX with prerequisites status" sap:VirtualizedContainerService.HintSize="200,25" sap2010:WorkflowViewState.IdRef="UpdateAXWithPrerequisitesStatus_2" Password="saed@332211" PersonalNumber="[PersonnelNumber]" RequestID="[RequestID]" RequestStatus="[UpdateAXRequestStatus]" Result="[UpdateAXResult]" ServiceURL="[in_Config(&quot;AXServiceURL&quot;).ToString]" Status="1" Username="esssrv@saed.sa">
+                      <u:UpdateAXWithPrerequisitesStatus.ExpiryDate>
+                        <InArgument x:TypeArguments="x:String">
+                          <Literal x:TypeArguments="x:String" Value="" />
+                        </InArgument>
+                      </u:UpdateAXWithPrerequisitesStatus.ExpiryDate>
+                      <u:UpdateAXWithPrerequisitesStatus.IdenttityNu>
+                        <InArgument x:TypeArguments="x:String">
+                          <Literal x:TypeArguments="x:String" Value="" />
+                        </InArgument>
+                      </u:UpdateAXWithPrerequisitesStatus.IdenttityNu>
+                    </u:UpdateAXWithPrerequisitesStatus>
+                  </If.Else>
+                </If>
+                <If Condition="[QueuePreRequisite.Contains(&quot;,&quot;)]" DisplayName="check pre requisites on this worker" sap:VirtualizedContainerService.HintSize="1640,624" sap2010:WorkflowViewState.IdRef="If_114">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="496,193" sap2010:WorkflowViewState.IdRef="Sequence_218">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_159">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="s:String[]">[PreRequisite]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="s:String[]">[Strings.Split(QueuePreRequisite,",")]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence sap:VirtualizedContainerService.HintSize="1099,464" sap2010:WorkflowViewState.IdRef="Sequence_278">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If Condition="[Not String.IsNullOrWhiteSpace(QueuePreRequisite)]" sap:VirtualizedContainerService.HintSize="1037,353" sap2010:WorkflowViewState.IdRef="If_113">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <If.Then>
+                          <Sequence sap:VirtualizedContainerService.HintSize="496,193" sap2010:WorkflowViewState.IdRef="Sequence_276">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_160">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="s:String[]">[PreRequisite]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="s:String[]">[{QueuePreRequisite}]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </Sequence>
+                        </If.Then>
+                        <If.Else>
+                          <Sequence sap:VirtualizedContainerService.HintSize="496,193" sap2010:WorkflowViewState.IdRef="Sequence_277">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_198">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="s:String[]">[PreRequisite]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="s:String[]">[{""}]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </Sequence>
+                        </If.Else>
+                      </If>
+                    </Sequence>
+                  </If.Else>
+                </If>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke RequirePrerequist workflow" sap:VirtualizedContainerService.HintSize="1640,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_28" UnSafe="False" WorkflowFileName="RequirePrerequist.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                    <InArgument x:TypeArguments="sd:DataTable" x:Key="SponsershipData">[SponsershipData]</InArgument>
+                    <InOutArgument x:TypeArguments="x:Boolean" x:Key="SponserCheckerStatus">[SponserCheckerStatus]</InOutArgument>
+                    <InOutArgument x:TypeArguments="x:Boolean" x:Key="trafficResult">[trafficResult]</InOutArgument>
+                    <InOutArgument x:TypeArguments="x:Boolean" x:Key="medResult">[medResult]</InOutArgument>
+                    <InOutArgument x:TypeArguments="x:Boolean" x:Key="depResult">[depResult]</InOutArgument>
+                    <InOutArgument x:TypeArguments="x:Boolean" x:Key="passValidResult">[passValidResult]</InOutArgument>
+                    <InOutArgument x:TypeArguments="x:String" x:Key="PassExpDate">[PassExpDate]</InOutArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</OutArgument>
+                    <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_TransactionItem">[in_TransactionItem]</InArgument>
+                    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="AXServiceURL">[AXServiceURL]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="RequestID">[RequestID]</InArgument>
+                    <InOutArgument x:TypeArguments="x:String" x:Key="FailureReason">[FailureReason]</InOutArgument>
+                    <InOutArgument x:TypeArguments="x:String" x:Key="UpdateAXRequestStatus">[UpdateAXRequestStatus]</InOutArgument>
+                    <InOutArgument x:TypeArguments="x:String" x:Key="UpdateAXResult">[UpdateAXResult]</InOutArgument>
+                    <InOutArgument x:TypeArguments="x:String" x:Key="UPdateAXErrorMSG">[UPdateAXErrorMSG]</InOutArgument>
+                    <InArgument x:TypeArguments="s:String[]" x:Key="PreRequisite">[PreRequisite]</InArgument>
+                    <InOutArgument x:TypeArguments="x:Boolean" x:Key="validWorker">[validWorker]</InOutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="RenewalType">[RenewalType]</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="SponserLog">[SponserLog]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="RenewalPeriod">[RenewalDuration]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="LegalEntity">[LegalEntity]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:InvokeWorkflowFile>
+              </Sequence>
+            </If.Else>
+          </If>
+        </Sequence>
+      </If.Else>
+    </If>
+    <If Condition="[validWorker]" DisplayName="If ِMove to Next Step" sap:VirtualizedContainerService.HintSize="2784,1041" sap2010:WorkflowViewState.IdRef="If_14">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="1530,881" sap2010:WorkflowViewState.IdRef="Sequence_36">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If Condition="[RenewalType.Equals(&quot;Do Muqeem Payment and Renew&quot;)]" sap:VirtualizedContainerService.HintSize="1468,770" sap2010:WorkflowViewState.IdRef="If_116">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[TaskID.ToLower]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Sequence x:Key="started" DisplayName="Start with Muqeem Payment" sap:VirtualizedContainerService.HintSize="450,81" sap2010:WorkflowViewState.IdRef="Sequence_285">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Queue GR_Payment_Muqueem_tem" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="AddQueueItem_16" Priority="Normal" QueueType="[in_Config(&quot;GR_Payment_Muqueem_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                    <ui:AddQueueItem.ItemInformation>
+                      <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                    </ui:AddQueueItem.ItemInformation>
+                  </ui:AddQueueItem>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_93" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the Payment Muqeem queue&quot;]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LogMessage>
+                </Sequence>
+                <Sequence x:Key="all payments done" DisplayName="Add to renewal" sap:VirtualizedContainerService.HintSize="450,229" sap2010:WorkflowViewState.IdRef="Sequence_287">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Renewal Queue Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="AddQueueItem_18" Priority="Normal" QueueType="[in_Config(&quot;GR_RenewIqama_QueuName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                    <ui:AddQueueItem.ItemInformation>
+                      <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                    </ui:AddQueueItem.ItemInformation>
+                  </ui:AddQueueItem>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="LogMessage_95" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the renew Iqama queue&quot;]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LogMessage>
+                </Sequence>
+                <Sequence x:Key="mol payment done" DisplayName="Check if Muqeem paymnet " sap:VirtualizedContainerService.HintSize="1005,501" sap2010:WorkflowViewState.IdRef="Sequence_331">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[MuqemPaymentStatus]" DisplayName="If Muqeem payment Done" sap:VirtualizedContainerService.HintSize="945,390" sap2010:WorkflowViewState.IdRef="If_129">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Then>
+                      <Sequence DisplayName="Add to renewal" sap:VirtualizedContainerService.HintSize="449.6,229.6" sap2010:WorkflowViewState.IdRef="Sequence_329">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Renewal Queue Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="AddQueueItem_31" Priority="Normal" QueueType="[in_Config(&quot;GR_RenewIqama_QueuName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                          <ui:AddQueueItem.ItemInformation>
+                            <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                          </ui:AddQueueItem.ItemInformation>
+                        </ui:AddQueueItem>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_108" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the renew Iqama queue&quot;]">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:LogMessage>
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="Start with Muqeem Payment" sap:VirtualizedContainerService.HintSize="449.6,229.6" sap2010:WorkflowViewState.IdRef="Sequence_330">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Queue GR_Payment_Muqueem_tem" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="AddQueueItem_32" Priority="Normal" QueueType="[in_Config(&quot;GR_Payment_Muqueem_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                          <ui:AddQueueItem.ItemInformation>
+                            <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                          </ui:AddQueueItem.ItemInformation>
+                        </ui:AddQueueItem>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_109" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the Payment Muqeem queue&quot;]">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:LogMessage>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+                <Sequence x:Key="sadad# issued" DisplayName="Start with Muqeem Payment" sap:VirtualizedContainerService.HintSize="450,229" sap2010:WorkflowViewState.IdRef="Sequence_315">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Queue GR_Payment_Muqueem_tem" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="AddQueueItem_25" Priority="Normal" QueueType="[in_Config(&quot;GR_Payment_Muqueem_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                    <ui:AddQueueItem.ItemInformation>
+                      <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                    </ui:AddQueueItem.ItemInformation>
+                  </ui:AddQueueItem>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_102" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the Payment Muqeem queue&quot;]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LogMessage>
+                </Sequence>
+                <Sequence x:Key="prerequisites done" DisplayName="Start with Muqeem Payment" sap:VirtualizedContainerService.HintSize="450,229" sap2010:WorkflowViewState.IdRef="Sequence_316">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Queue GR_Payment_Muqueem_tem" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="AddQueueItem_26" Priority="Normal" QueueType="[in_Config(&quot;GR_Payment_Muqueem_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                    <ui:AddQueueItem.ItemInformation>
+                      <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                    </ui:AddQueueItem.ItemInformation>
+                  </ui:AddQueueItem>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_103" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the Payment Muqeem queue&quot;]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LogMessage>
+                </Sequence>
+              </Switch>
+            </If.Then>
+            <If.Else>
+              <Sequence sap:VirtualizedContainerService.HintSize="1223,610" sap2010:WorkflowViewState.IdRef="Sequence_307">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If Condition="[RenewalType.Contains(&quot;Generate WP with Payment (No&quot;)]" sap:VirtualizedContainerService.HintSize="1161,499" sap2010:WorkflowViewState.IdRef="If_125">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="558,339" sap2010:WorkflowViewState.IdRef="Sequence_289">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[TaskID.ToLower]" sap:VirtualizedContainerService.HintSize="496,228" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Sequence x:Key="started" DisplayName="Generate MOL Sadad " sap:VirtualizedContainerService.HintSize="450,293" sap2010:WorkflowViewState.IdRef="Sequence_283">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue G Sadad Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="AddQueueItem_15" Priority="Normal" QueueType="[in_Config(&quot;GR_Sadad_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                            <ui:AddQueueItem.ItemInformation>
+                              <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="BorderNO">[BorderNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="SponsorshipNumber">[SponsNum]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                            </ui:AddQueueItem.ItemInformation>
+                          </ui:AddQueueItem>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="LogMessage_92" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the sadad queue&quot;]">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:LogMessage>
+                          <u:UpdateAXWithAllPrerequisitesDone BackendErrorMsg="{x:Null}" RequestStatus="{x:Null}" Result="{x:Null}" DisplayName="Update AX with all prerequisites done" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="UpdateAXWithAllPrerequisitesDone_3" Password="saed@332211" RequestID="[RequestID]" ServiceURL="[in_Config(&quot;AXServiceURL&quot;).ToString]" Status="1" Username="esssrv@saed.sa" Worker="[PersonnelNumber]" />
+                        </Sequence>
+                        <x:Null x:Key="mol payment done" />
+                        <Sequence x:Key="all payments done" DisplayName="If Sadad is empty" sap:VirtualizedContainerService.HintSize="450,163" sap2010:WorkflowViewState.IdRef="Sequence_322">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <If Condition="[SADADnu.IsNullOrEmpty]" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="If_126">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <If.Then>
+                              <Sequence DisplayName="Generate MOL Sadad " sap:VirtualizedContainerService.HintSize="449.6,294.4" sap2010:WorkflowViewState.IdRef="Sequence_320">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue G Sadad Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="AddQueueItem_28" Priority="Normal" QueueType="[in_Config(&quot;GR_Sadad_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                                  <ui:AddQueueItem.ItemInformation>
+                                    <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="BorderNO">[BorderNumber]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="SponsorshipNumber">[SponsNum]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                                  </ui:AddQueueItem.ItemInformation>
+                                </ui:AddQueueItem>
+                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_105" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the sadad queue&quot;]">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </ui:LogMessage>
+                                <u:UpdateAXWithAllPrerequisitesDone BackendErrorMsg="{x:Null}" RequestStatus="{x:Null}" Result="{x:Null}" DisplayName="Update AX with all prerequisites done" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="UpdateAXWithAllPrerequisitesDone_6" Password="saed@332211" RequestID="[RequestID]" ServiceURL="[in_Config(&quot;AXServiceURL&quot;).ToString]" Status="1" Username="esssrv@saed.sa" Worker="[PersonnelNumber]" />
+                              </Sequence>
+                            </If.Then>
+                            <If.Else>
+                              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_321">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                              </Sequence>
+                            </If.Else>
+                          </If>
+                        </Sequence>
+                        <Sequence x:Key="prerequisites done" DisplayName="Generate MOL Sadad " sap:VirtualizedContainerService.HintSize="450,268" sap2010:WorkflowViewState.IdRef="Sequence_280">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue G Sadad Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="AddQueueItem_12" Priority="Normal" QueueType="[in_Config(&quot;GR_Sadad_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                            <ui:AddQueueItem.ItemInformation>
+                              <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="BorderNO">[BorderNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="SponsorshipNumber">[SponsNum]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                            </ui:AddQueueItem.ItemInformation>
+                          </ui:AddQueueItem>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,92" sap2010:WorkflowViewState.IdRef="LogMessage_89" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the sadad queue&quot;]">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:LogMessage>
+                        </Sequence>
+                        <Sequence x:Key="sadad# issued" sap:VirtualizedContainerService.HintSize="512,380" sap2010:WorkflowViewState.IdRef="Sequence_284">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Sequence DisplayName="Pay MOL Sadad " sap:VirtualizedContainerService.HintSize="450,268" sap2010:WorkflowViewState.IdRef="Sequence_282">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Pay MOL  Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="AddQueueItem_14" Priority="Normal" QueueType="[in_Config(&quot;GR_Payment_MOL_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID+&quot;_&quot;+SADADnu]">
+                              <ui:AddQueueItem.ItemInformation>
+                                <InArgument x:TypeArguments="x:String" x:Key="RequestID">[RequestID]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="SadadNumber">[SADADnu]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                              </ui:AddQueueItem.ItemInformation>
+                            </ui:AddQueueItem>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,92" sap2010:WorkflowViewState.IdRef="LogMessage_91" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the MOL Payment queue&quot;]">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </ui:LogMessage>
+                          </Sequence>
+                        </Sequence>
+                      </Switch>
+                    </Sequence>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence sap:VirtualizedContainerService.HintSize="558,339" sap2010:WorkflowViewState.IdRef="Sequence_314">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[TaskID.ToLower]" sap:VirtualizedContainerService.HintSize="496,228" sap2010:WorkflowViewState.IdRef="Switch`1_3">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Sequence x:Key="started" DisplayName="Generate MOL Sadad " sap:VirtualizedContainerService.HintSize="450,293" sap2010:WorkflowViewState.IdRef="Sequence_308">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue G Sadad Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="AddQueueItem_20" Priority="Normal" QueueType="[in_Config(&quot;GR_Sadad_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                            <ui:AddQueueItem.ItemInformation>
+                              <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="BorderNO">[BorderNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="SponsorshipNumber">[SponsNum]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                            </ui:AddQueueItem.ItemInformation>
+                          </ui:AddQueueItem>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="LogMessage_97" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the sadad queue&quot;]">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:LogMessage>
+                          <u:UpdateAXWithAllPrerequisitesDone BackendErrorMsg="{x:Null}" RequestStatus="{x:Null}" Result="{x:Null}" DisplayName="Update AX with all prerequisites done" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="UpdateAXWithAllPrerequisitesDone_4" Password="saed@332211" RequestID="[RequestID]" ServiceURL="[in_Config(&quot;AXServiceURL&quot;).ToString]" Status="1" Username="esssrv@saed.sa" Worker="[PersonnelNumber]" />
+                        </Sequence>
+                        <Sequence x:Key="mol payment done" DisplayName="Mol Payment Done" sap:VirtualizedContainerService.HintSize="450,228" sap2010:WorkflowViewState.IdRef="Sequence_309">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Queue GR_Payment_Muqueem_tem" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="AddQueueItem_21" Priority="Normal" QueueType="[in_Config(&quot;GR_Payment_Muqueem_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                            <ui:AddQueueItem.ItemInformation>
+                              <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                            </ui:AddQueueItem.ItemInformation>
+                          </ui:AddQueueItem>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="LogMessage_98" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the Payment Muqeem queue&quot;]">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:LogMessage>
+                        </Sequence>
+                        <Sequence x:Key="all payments done" sap:VirtualizedContainerService.HintSize="1007,565" sap2010:WorkflowViewState.IdRef="Sequence_325">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <If Condition="[SADADnu.IsNullOrEmpty]" DisplayName="If Not Sadad " sap:VirtualizedContainerService.HintSize="945,454" sap2010:WorkflowViewState.IdRef="If_127">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <If.Then>
+                              <Sequence DisplayName="Generate MOL Sadad " sap:VirtualizedContainerService.HintSize="449.6,294.4" sap2010:WorkflowViewState.IdRef="Sequence_323">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue G Sadad Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="AddQueueItem_29" Priority="Normal" QueueType="[in_Config(&quot;GR_Sadad_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                                  <ui:AddQueueItem.ItemInformation>
+                                    <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="BorderNO">[BorderNumber]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="SponsorshipNumber">[SponsNum]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                                  </ui:AddQueueItem.ItemInformation>
+                                </ui:AddQueueItem>
+                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_106" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the sadad queue&quot;]">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </ui:LogMessage>
+                                <u:UpdateAXWithAllPrerequisitesDone BackendErrorMsg="{x:Null}" RequestStatus="{x:Null}" Result="{x:Null}" DisplayName="Update AX with all prerequisites done" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="UpdateAXWithAllPrerequisitesDone_7" Password="saed@332211" RequestID="[RequestID]" ServiceURL="[in_Config(&quot;AXServiceURL&quot;).ToString]" Status="1" Username="esssrv@saed.sa" Worker="[PersonnelNumber]" />
+                              </Sequence>
+                            </If.Then>
+                            <If.Else>
+                              <Sequence DisplayName="Add to renewal" sap:VirtualizedContainerService.HintSize="449.6,229.6" sap2010:WorkflowViewState.IdRef="Sequence_324">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Renewal Queue Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="AddQueueItem_30" Priority="Normal" QueueType="[in_Config(&quot;GR_RenewIqama_QueuName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                                  <ui:AddQueueItem.ItemInformation>
+                                    <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                                    <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                                  </ui:AddQueueItem.ItemInformation>
+                                </ui:AddQueueItem>
+                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_107" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the renew Iqama queue&quot;]">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </ui:LogMessage>
+                              </Sequence>
+                            </If.Else>
+                          </If>
+                        </Sequence>
+                        <Sequence x:Key="prerequisites done" DisplayName="Generate MOL Sadad " sap:VirtualizedContainerService.HintSize="450,268" sap2010:WorkflowViewState.IdRef="Sequence_311">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue G Sadad Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="AddQueueItem_23" Priority="Normal" QueueType="[in_Config(&quot;GR_Sadad_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID]">
+                            <ui:AddQueueItem.ItemInformation>
+                              <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="BorderNO">[BorderNumber]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="RequestId">[RequestID]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="SponsorshipNumber">[SponsNum]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                            </ui:AddQueueItem.ItemInformation>
+                          </ui:AddQueueItem>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,92" sap2010:WorkflowViewState.IdRef="LogMessage_100" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the sadad queue&quot;]">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:LogMessage>
+                        </Sequence>
+                        <Sequence x:Key="sadad# issued" sap:VirtualizedContainerService.HintSize="512,380" sap2010:WorkflowViewState.IdRef="Sequence_313">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Sequence DisplayName="Pay MOL Sadad " sap:VirtualizedContainerService.HintSize="450,268" sap2010:WorkflowViewState.IdRef="Sequence_312">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Pay MOL  Item" FolderPath="GR_Automation" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="AddQueueItem_24" Priority="Normal" QueueType="[in_Config(&quot;GR_Payment_MOL_QueueName&quot;).ToString]" Reference="[IqamaNumber+&quot;_&quot;+RequestID+&quot;_&quot;+SADADnu]">
+                              <ui:AddQueueItem.ItemInformation>
+                                <InArgument x:TypeArguments="x:String" x:Key="RequestID">[RequestID]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="IqamaNumber">[IqamaNumber]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="SadadNumber">[SADADnu]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="PersonnelNumber">[PersonnelNumber]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="IqamaExpirationDate">[IqamaExpirationDate]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="MOLCode">[MOLcode]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="RenewalDuration">[RenewalDuration]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="Type">[RenewalType]</InArgument>
+                              </ui:AddQueueItem.ItemInformation>
+                            </ui:AddQueueItem>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,92" sap2010:WorkflowViewState.IdRef="LogMessage_101" Level="Info" Message="[&quot;the worker prerequisites status is valid and robot send to the MOL Payment queue&quot;]">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </ui:LogMessage>
+                          </Sequence>
+                        </Sequence>
+                      </Switch>
+                    </Sequence>
+                  </If.Else>
+                </If>
+              </Sequence>
+            </If.Else>
+          </If>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence sap:VirtualizedContainerService.HintSize="450,81" sap2010:WorkflowViewState.IdRef="Sequence_37">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <u:UpdateAXWithAllPrerequisitesDone BackendErrorMsg="{x:Null}" RequestStatus="{x:Null}" Result="{x:Null}" DisplayName="Update AX with all prerequisites done" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="UpdateAXWithAllPrerequisitesDone_2" Password="saed@332211" RequestID="[RequestID]" ServiceURL="[in_Config(&quot;AXServiceURL&quot;).ToString]" Status="0" Username="esssrv@saed.sa" Worker="[PersonnelNumber]" />
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;the worker prerequisites status  is not valid&quot;]">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:LogMessage>
+          <w:WriteLogsToFile DisplayName="Write logs to file" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="WriteLogsToFile_33" LogMessage="the worker prerequisites status  is not valid" TextFilePath="[in_Config(&quot;LogsFolder&quot;).ToString+&quot;\Logs_&quot;+Date.Now.ToString(&quot;dd_MM_yyyy&quot;)+&quot;.txt&quot;]" />
+          <Throw Exception="[new BusinessRuleException(&quot;worker failed in prequisites &quot;+FailureReason)]" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="Throw_1" />
+        </Sequence>
+      </If.Else>
+    </If>
+    <ui:DatabaseDisconnect DatabaseConnection="[conn]" DisplayName="Disconnect from database" sap:VirtualizedContainerService.HintSize="2784,25" sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_1" />
+  </Sequence>
+</Activity>

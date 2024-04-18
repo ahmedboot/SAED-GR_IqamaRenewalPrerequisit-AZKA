@@ -1,0 +1,364 @@
+Log Message  : Opening Muqeem
+Log Datetime : 12:49:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Muqeem is Open
+Log Datetime : 12:54:37
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : getting new Transaction with ID 2185944531
+Log Datetime : 12:58:01
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing started
+Log Datetime : 12:58:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : worker number in AX is D0002523 and Iqama Number is 2185944531
+Log Datetime : 12:58:08
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checking in Muqeem started
+Log Datetime : 12:58:08
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checks in Muqeem finished
+Log Datetime : 12:58:27
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker medical status in muqeem is :True
+Log Datetime : 12:58:27
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 12:58:28
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker traffic status in muqeem is :True
+Log Datetime : 12:58:28
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 12:58:28
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker Dependants status in muqeem is :True
+Log Datetime : 12:58:28
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 12:58:28
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker passport validity  status in muqeem is :True
+Log Datetime : 12:58:28
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 12:58:28
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker prerequisites status is valid and robot send to the sadad queue
+Log Datetime : 12:58:29
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing Finished
+Log Datetime : 12:58:29
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Queue Item Finished successfully
+Log Datetime : 12:58:30
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : getting new Transaction with ID 2461873826
+Log Datetime : 12:58:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing started
+Log Datetime : 12:58:45
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : worker number in AX is L0010254 and Iqama Number is 2461873826
+Log Datetime : 12:58:46
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checking in Muqeem started
+Log Datetime : 12:58:47
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Queue Item Finished with application Exception Could not find the UI element corresponding to this selector:
+<html app='chrome.exe' title='الصفحة الرئيسية'/>
+
+The closest matches found are:
+[62%] <html app='chrome.exe' title='إدارة الخدمات الالكترونية لوزارة الموارد البشرية والتنمية الاجتماعية'/>
+Log Datetime : 13:15:44
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Opening Muqeem
+Log Datetime : 13:15:46
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Opening Muqeem
+Log Datetime : 13:20:28
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Muqeem is Open
+Log Datetime : 13:22:19
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : getting new Transaction with ID 2511044410
+Log Datetime : 13:22:20
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing started
+Log Datetime : 13:22:23
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : worker number in AX is L0015636 and Iqama Number is 2511044410
+Log Datetime : 13:22:25
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checking in Muqeem started
+Log Datetime : 13:22:25
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checks in Muqeem finished
+Log Datetime : 13:22:45
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker medical status in muqeem is :True
+Log Datetime : 13:22:45
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:22:45
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker traffic status in muqeem is :True
+Log Datetime : 13:22:45
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:22:45
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker Dependants status in muqeem is :True
+Log Datetime : 13:22:45
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:22:45
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker passport validity  status in muqeem is :True
+Log Datetime : 13:22:45
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:22:46
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker prerequisites status is valid and robot send to the renew Iqama queue
+Log Datetime : 13:22:46
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing Finished
+Log Datetime : 13:22:46
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Queue Item Finished successfully
+Log Datetime : 13:22:47
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : getting new Transaction with ID 2511044949
+Log Datetime : 13:22:47
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing started
+Log Datetime : 13:22:49
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : worker number in AX is L0015638 and Iqama Number is 2511044949
+Log Datetime : 13:22:50
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checking in Muqeem started
+Log Datetime : 13:22:50
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checks in Muqeem finished
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker medical status in muqeem is :True
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker traffic status in muqeem is :True
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker Dependants status in muqeem is :True
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker passport validity  status in muqeem is :True
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker prerequisites status is valid and robot send to the renew Iqama queue
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing Finished
+Log Datetime : 13:23:05
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Queue Item Finished successfully
+Log Datetime : 13:23:06
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : getting new Transaction with ID 2511335412
+Log Datetime : 13:23:06
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing started
+Log Datetime : 13:23:08
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : worker number in AX is L0015619 and Iqama Number is 2511335412
+Log Datetime : 13:23:09
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checking in Muqeem started
+Log Datetime : 13:23:09
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checks in Muqeem finished
+Log Datetime : 13:23:23
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker medical status in muqeem is :True
+Log Datetime : 13:23:23
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:24
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker traffic status in muqeem is :True
+Log Datetime : 13:23:24
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:24
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker Dependants status in muqeem is :True
+Log Datetime : 13:23:24
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:24
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker passport validity  status in muqeem is :True
+Log Datetime : 13:23:24
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:24
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker prerequisites status is valid and robot send to the renew Iqama queue
+Log Datetime : 13:23:24
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing Finished
+Log Datetime : 13:23:24
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Queue Item Finished successfully
+Log Datetime : 13:23:24
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : getting new Transaction with ID 2461873826
+Log Datetime : 13:23:25
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing started
+Log Datetime : 13:23:26
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : worker number in AX is L0010254 and Iqama Number is 2461873826
+Log Datetime : 13:23:27
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checking in Muqeem started
+Log Datetime : 13:23:27
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Checks in Muqeem finished
+Log Datetime : 13:23:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker medical status in muqeem is :True
+Log Datetime : 13:23:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker traffic status in muqeem is :True
+Log Datetime : 13:23:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker Dependants status in muqeem is :True
+Log Datetime : 13:23:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker passport validity  status in muqeem is :True
+Log Datetime : 13:23:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Upadating In AX Request Status : success*****Upadating In AX Result : {"Status": 1, "Message": updateDone }*****Upadating In AX ErrorMSG Status : 
+Log Datetime : 13:23:42
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : the worker prerequisites status is valid and robot send to the renew Iqama queue
+Log Datetime : 13:23:43
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Item processing Finished
+Log Datetime : 13:23:43
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Log Message  : Queue Item Finished successfully
+Log Datetime : 13:23:43
+-------------------------------------------------------------------
+-------------------------------------------------------------------
